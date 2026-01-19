@@ -5,12 +5,15 @@ config:
 ---
 graph TD;
 	__start__([<p>__start__</p>]):::first
-	assistant(assistant)
-	assistant_2(assistant_2)
+	general_node(general_node)
+	tech_node(tech_node)
+	reviewer_node(reviewer_node)
 	__end__([<p>__end__</p>]):::last
-	__start__ --> assistant;
-	assistant --> assistant_2;
-	assistant_2 --> __end__;
+	__start__ -.-> general_node;
+	__start__ -.-> tech_node;
+	general_node --> reviewer_node;
+	tech_node --> reviewer_node;
+	reviewer_node --> __end__;
 	classDef default fill:#f2f0ff,line-height:1.2
 	classDef first fill-opacity:0
 	classDef last fill:#bfb6fc

@@ -20,7 +20,7 @@ from langgraph.graph import StateGraph, MessagesState, START, END
 load_dotenv()
 
 class GraphApp:
-    # CORREÇÃO 1: Usando o modelo correto (1.5)
+    
     def __init__(self, model: str = "gemini-2.5-flash"):
         self.llm = ChatGoogleGenerativeAI(model=model, temperature=0)
         
@@ -48,6 +48,19 @@ class GraphApp:
             return "\n\n".join([d['content'] for d in docs])
         except Exception:
             return "" # Falha silenciosa para não quebrar o fluxo
+        
+    def save_graph_schema(self, graph):
+        """Salva o diagrama do grafo em formato Mermaid (.mmd)"""
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            file_path = f"graph_{timestamp}.mmd"
+    
+            mermaid_code = graph.get_graph(xray=True).draw_mermaid()
+            with open(file_path, "w") as f:
+                f.write(mermaid_code)
+            print(f"   [DEBUG] 📊 Diagrama do grafo salvo em: {file_path}")
+        except Exception as e:
+            print(f"   [DEBUG] ⚠️ Erro ao salvar diagrama: {e}")
 
     def make_specialist_node(self, persona: str, category: str, node_name: str):
         """Cria nó especialista com RAG."""
@@ -107,7 +120,7 @@ class GraphApp:
                 ("system", """
                  Você é um roteador de classificação.
                  Se a pergunta for sobre PREÇO, PLANOS, VALORES ou GERAL do produto -> Responda 'GENERAL'.
-                 Se a pergunta for sobre CÓDIGO, API, REACT, FLUXO TÉCNICO, INSTALAÇÃO, ERROS -> Responda 'TECHNICAL'.
+                 Se a pergunta for sobre CÓDIGO, API, REACT, FLUXO TÉCNICO, INSTALAÇÃO, ERROS, JSON -> Responda 'TECHNICAL'.
                  Responda APENAS uma palavra.
                  """),
                 ("human", "{question}")
@@ -139,7 +152,14 @@ class GraphApp:
         builder.add_edge("reviewer_node", END)
 
         memory = MemorySaver()
-        return builder.compile(checkpointer=memory)
+        
+        # Compila o grafo
+        graph = builder.compile(checkpointer=memory)
+        
+        # Salva o diagrama (Agora que o grafo existe!)
+        self.save_graph_schema(graph)
+        
+        return graph
 
     def ask(self, prompt: str):
         initial_state = {"messages": [prompt]}
@@ -164,6 +184,8 @@ def main():
             
     except Exception as e:
         print(f"Erro Crítico: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
     main()
