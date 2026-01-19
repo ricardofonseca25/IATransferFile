@@ -1,14 +1,19 @@
-# Descriçao Geral:
+Descrição Geral:
 
-Este projeto é um Chatbot de Terminal inteligente capaz de atuar como especialista técnico e comercial sobre o produto "TransferFile". Ele utiliza uma arquitetura multi-agente orquestrada pelo LangGraph e Memória de Curto Prazo, implementando o padrão RAG (Retrieval-Augmented Generation) para respostas precisas.
+Este projeto é um Chatbot de Terminal inteligente, projetado para atuar como um especialista no produto "TransferFile".
 
-# Detalhes:
+Ele não é apenas um bot de perguntas e respostas; utilizamos uma arquitetura multi-agente orquestrada pelo LangGraph e Memória de Curto Prazo. Para garantir que ele não invente informações (as famosas "alucinações"), implementamos o padrão RAG (Retrieval-Augmented Generation), buscando dados reais direto da nossa base de conhecimento.
 
-Neste projeto usamos 3 Agents:
+Detalhes da Arquitetura:
 
-Tecnico, Comercial e Fiscalizador, que tem como objetivo analisar as saídas se seguem bons costumes.
-A fonte de dados é um DB Supabase Vector.
+Neste projeto, o "cérebro" é dividido em 3 Agentes Especialistas, cada um com uma responsabilidade clara:
 
-- Imagem modelo do Fluxo dos Agentes.
+Agente Técnico: Cuida de tudo que envolve código, API, JSON e integração.
 
+Agente Comercial: Domina os planos, preços e funcionalidades de negócio.
 
+Agente Fiscalizador: O "guardião dos bons costumes". Ele analisa as respostas dos outros agentes antes de chegarem ao usuário, garantindo que sejam educadas, úteis e bem formatadas.
+
+Fonte de Dados: Todo o conhecimento vem de um Supabase Vector DB, onde armazenamos os manuais técnicos e comerciais vetorizados.
+
+Imagem em anexo para demonstrar o fluxo dos agentes.
