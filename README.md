@@ -1,6 +1,6 @@
 Descrição Geral:
 
-Este projeto é um Chatbot de Terminal inteligente, projetado para atuar como um especialista no produto "TransferFile".
+Este projeto é um Chatbot de Terminal (Modelo TESTE), projetado para atuar como um "especialista" no produto "TransferFile".
 
 Ele não é apenas um bot de perguntas e respostas; utilizamos uma arquitetura multi-agente orquestrada pelo LangGraph e Memória de Curto Prazo. Para garantir que ele não invente informações (as famosas "alucinações"), implementamos o padrão RAG (Retrieval-Augmented Generation), buscando dados reais direto da nossa base de conhecimento.
 
