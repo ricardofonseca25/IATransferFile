@@ -9,4 +9,6 @@ Neste projeto usamos 3 Agents:
 Tecnico, Comercial e Fiscalizador, que tem como objetivo analisar as saídas se seguem bons costumes.
 A fonte de dados é um DB Supabase Vector.
 
+- Imagem modelo do Fluxo dos Agentes.
+
 
